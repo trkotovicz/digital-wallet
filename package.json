@@ -1,17 +1,21 @@
 {
   "name": "cubos",
   "version": "1.0.0",
-  "description": "",
+  "description": "Digital Wallet",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "lint": "eslint '*.{js,ts}' --fix",
-    "prestart": "npm run typeorm migration:run -- -d src/database/data-source.ts",
+    "prestart": "npm run migration:run",
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "compose:up": "docker-compose up --build --detach",
-    "compose:down": "docker-compose down --remove-orphans"
+    "migration:create": "typeorm migration:create src/database/migrations/CreateDB",
+    "migration:run": "npm run typeorm migration:run -- -d src/database/data-source.ts",
+    "db:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:create --dataSource src/database/data-source.ts",
+    "db:drop": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop --dataSource src/database/data-source.ts",
+    "seed:run": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:run --dataSource src/database/data-source.ts",
+    "seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create --dataSource src/database/data-source.ts"
   },
   "keywords": [],
   "author": "Thais Kotovicz <thais_kotovicz@hotmail.com>",
@@ -26,7 +30,8 @@
     "joi": "^17.12.2",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "typeorm-extension": "^3.5.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
