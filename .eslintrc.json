@@ -7,6 +7,7 @@
   ],
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
+    "quotes": ["error", "single"],
     "prettier/prettier": "error"
   }
 }

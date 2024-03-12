@@ -21,7 +21,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
           {
             name: "name",
             type: "varchar",
-            length: "127",
+            length: "100",
             isNullable: false,
           },
           {
@@ -31,17 +31,17 @@ export class CreateDB1710190120500 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: "createdAt",
+            name: "created_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP()",
           },
           {
-            name: "updatedAt",
+            name: "updated_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP()",
           },
         ],
-      }),
+      })
     );
 
     await queryRunner.createTable(
@@ -81,12 +81,12 @@ export class CreateDB1710190120500 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: "createdAt",
+            name: "created_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP()",
           },
           {
-            name: "updatedAt",
+            name: "updated_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP()",
           },
@@ -99,7 +99,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
             onDelete: "CASCADE",
           },
         ],
-      }),
+      })
     );
 
     await queryRunner.createTable(
@@ -128,7 +128,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
             type: "uuid",
           },
           {
-            name: "createdAt",
+            name: "created_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP()",
             isNullable: false,
@@ -142,7 +142,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
             onDelete: "CASCADE",
           },
         ],
-      }),
+      })
     );
 
     await queryRunner.createTable(
@@ -179,12 +179,12 @@ export class CreateDB1710190120500 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: "createdAt",
+            name: "created_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP()",
           },
           {
-            name: "updatedAt",
+            name: "updated_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP()",
           },
@@ -197,7 +197,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
             onDelete: "CASCADE",
           },
         ],
-      }),
+      })
     );
   }
 

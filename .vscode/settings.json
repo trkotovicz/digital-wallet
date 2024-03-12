@@ -8,10 +8,11 @@
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.fixAll.eslint": true,
-    "source.organizeImports": true
+   "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "always",
+    "source.fixAll.singleQuote": "always",
   },
   // files
   "files.encoding": "utf8",
@@ -26,7 +27,7 @@
     "editor.formatOnSave": false
   },
   // git
-  "git.inputValidation": "off",
+  "git.inputValidation": false,
   // jestrunner
   "jestrunner.runOptions": [
     "--testTimeout=999999"
