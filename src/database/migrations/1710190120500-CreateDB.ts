@@ -74,6 +74,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
             isNullable: false,
             precision: 8,
             scale: 2,
+            unsigned: true
           },
           {
             name: "document",
@@ -99,7 +100,8 @@ export class CreateDB1710190120500 implements MigrationInterface {
             onDelete: "CASCADE",
           },
         ],
-      })
+      }),
+      true
     );
 
     await queryRunner.createTable(
@@ -112,6 +114,10 @@ export class CreateDB1710190120500 implements MigrationInterface {
             isGenerated: true,
           },
           {
+            name: "accountId",
+            type: "uuid",
+          },
+          {
             name: "value",
             type: "decimal",
             isNullable: false,
@@ -122,10 +128,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
             name: "description",
             type: "varchar",
             length: "60",
-          },
-          {
-            name: "accountId",
-            type: "uuid",
           },
           {
             name: "created_at",
@@ -142,7 +144,8 @@ export class CreateDB1710190120500 implements MigrationInterface {
             onDelete: "CASCADE",
           },
         ],
-      })
+      }),
+      true
     );
 
     await queryRunner.createTable(
@@ -154,6 +157,11 @@ export class CreateDB1710190120500 implements MigrationInterface {
             type: "uuid",
             isPrimary: true,
             isGenerated: true,
+          },
+          {
+            name: "accountId",
+            type: "uuid",
+            isNullable: false,
           },
           {
             name: "type",
@@ -171,11 +179,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
             name: "cvv",
             type: "int",
             length: "3",
-            isNullable: false,
-          },
-          {
-            name: "accountId",
-            type: "uuid",
             isNullable: false,
           },
           {
@@ -197,7 +200,8 @@ export class CreateDB1710190120500 implements MigrationInterface {
             onDelete: "CASCADE",
           },
         ],
-      })
+      }),
+      true
     );
   }
 

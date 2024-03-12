@@ -2,26 +2,35 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryColumn,
-  UpdateDateColumn,
 } from "typeorm";
+import { Account } from "./Account";
 
 @Entity()
 export class Transaction {
   @PrimaryColumn({ type: "uuid" })
   id: string;
 
-  @Column({ type: "decimal", nullable: false, precision: 8, scale: 2 })
-  value: string;
+  @ManyToOne(() => Account, (account) => account.transactions)
+  accountId: Account;
+
+  @Column({
+    type: "decimal",
+    nullable: false,
+    precision: 8,
+    scale: 2,
+    unsigned: true,
+  })
+  value: number;
 
   @Column({ type: "varchar", length: 60 })
   description: string;
 
-  @Column({ type: 'uuid', nullable: false })
-  accountId: string;
-  // FK Account
-  // many transactions allowed
-
-  @CreateDateColumn({ name: "created_at", default: "now()" })
+  @CreateDateColumn({
+    name: "created_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createdAt: Date;
 }

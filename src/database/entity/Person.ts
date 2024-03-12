@@ -2,11 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Account } from "./Account";
 
-@Entity()
+@Entity({ name: 'people'})
 export class Person {
   @PrimaryColumn({ type: "uuid" })
   id: string;
@@ -20,9 +22,20 @@ export class Person {
   @Column({ type: "varchar", nullable: false, length: 60 })
   password: string;
 
-  @CreateDateColumn({ name: "created_at", default: "now()" })
+  @CreateDateColumn({
+    name: "created_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at", default: "now()" })
+  @UpdateDateColumn({
+    name: "updated_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
   updatedAt: Date;
+
+  @OneToMany(() => Account, (account) => account.person)
+  accounts: Account[];
 }
