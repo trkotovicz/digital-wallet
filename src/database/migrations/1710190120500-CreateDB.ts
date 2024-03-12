@@ -15,7 +15,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
           {
             name: "document",
             type: "varchar",
-            isUnique: true,
             isNullable: false,
           },
           {
@@ -33,12 +32,19 @@ export class CreateDB1710190120500 implements MigrationInterface {
           {
             name: "created_at",
             type: "timestamp",
-            default: "CURRENT_TIMESTAMP()",
+            default: "CURRENT_TIMESTAMP",
           },
           {
             name: "updated_at",
             type: "timestamp",
-            default: "CURRENT_TIMESTAMP()",
+            default: "CURRENT_TIMESTAMP",
+          },
+        ],
+        indices: [
+          {
+            name: "IDX_DOCUMENT",
+            columnNames: ["document"],
+            isUnique: true,
           },
         ],
       })
@@ -58,7 +64,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
             name: "branch",
             type: "int",
             isNullable: false,
-            length: "3",
             default: "001",
           },
           {
@@ -66,7 +71,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
             type: "int",
             isNullable: false,
             isUnique: true,
-            length: "8",
           },
           {
             name: "balance",
@@ -74,7 +78,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
             isNullable: false,
             precision: 8,
             scale: 2,
-            unsigned: true
           },
           {
             name: "document",
@@ -84,12 +87,12 @@ export class CreateDB1710190120500 implements MigrationInterface {
           {
             name: "created_at",
             type: "timestamp",
-            default: "CURRENT_TIMESTAMP()",
+            default: "CURRENT_TIMESTAMP",
           },
           {
             name: "updated_at",
             type: "timestamp",
-            default: "CURRENT_TIMESTAMP()",
+            default: "CURRENT_TIMESTAMP",
           },
         ],
         foreignKeys: [
@@ -132,7 +135,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
           {
             name: "created_at",
             type: "timestamp",
-            default: "CURRENT_TIMESTAMP()",
+            default: "CURRENT_TIMESTAMP",
             isNullable: false,
           },
         ],
@@ -178,18 +181,17 @@ export class CreateDB1710190120500 implements MigrationInterface {
           {
             name: "cvv",
             type: "int",
-            length: "3",
             isNullable: false,
           },
           {
             name: "created_at",
             type: "timestamp",
-            default: "CURRENT_TIMESTAMP()",
+            default: "CURRENT_TIMESTAMP",
           },
           {
             name: "updated_at",
             type: "timestamp",
-            default: "CURRENT_TIMESTAMP()",
+            default: "CURRENT_TIMESTAMP",
           },
         ],
         foreignKeys: [

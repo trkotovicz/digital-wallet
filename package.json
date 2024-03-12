@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Digital Wallet",
   "main": "index.js",
-  "type": "commonjs",
   "scripts": {
     "lint": "eslint '*.{js,ts}' --fix",
     "prestart": "npm run migration:run",

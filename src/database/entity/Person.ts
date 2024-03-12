@@ -13,7 +13,7 @@ export class Person {
   @PrimaryColumn({ type: "uuid" })
   id: string;
 
-  @Column({ type: "varchar", unique: true, nullable: false })
+  @Column({ type: "varchar", nullable: false })
   document: string;
 
   @Column({ type: "varchar", nullable: false, length: 100 })

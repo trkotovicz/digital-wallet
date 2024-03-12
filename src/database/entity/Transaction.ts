@@ -20,7 +20,6 @@ export class Transaction {
     nullable: false,
     precision: 8,
     scale: 2,
-    unsigned: true,
   })
   value: number;
 

@@ -28,7 +28,6 @@ export class Account {
     precision: 8,
     scale: 2,
     default: 0,
-    unsigned: true,
   })
   balance: string;
 
