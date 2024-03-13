@@ -13,10 +13,8 @@ export default function authMiddleware(
     throw new Error(ErrorTypes.InvalidToken);
   }
 
-  const [token] = authorization.split(" ");
-
   try {
-    JwtService.validateToken(token);
+    JwtService.validateToken(authorization);
     return next();
   } catch (error) {
     throw new Error(ErrorTypes.InvalidToken);

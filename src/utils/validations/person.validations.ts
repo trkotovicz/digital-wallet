@@ -1,6 +1,6 @@
-import * as Joi from "joi";
-import { ErrorTypes } from '../errors/catalog';
-const { validator, cpf, cnpj } = require("cpf-cnpj-validator");
+import Joi from "joi";
+import { ErrorTypes } from "../../errors/catalog";
+const { cpf, cnpj } = require("cpf-cnpj-validator");
 const passwordComplexity = require("joi-password-complexity");
 
 const complexityOptions = {
@@ -23,8 +23,7 @@ export const validateDocument = (value: any): boolean => {
     const isValid = cnpj.isValid(value);
     if (!isValid) throw new Error(ErrorTypes.InvalidDocument);
     return true;
-  }
-  else throw new Error(ErrorTypes.InvalidDocument);
+  } else throw new Error(ErrorTypes.InvalidDocument);
 };
 
 export const newPersonSchema = (data: object): Joi.ValidationResult => {

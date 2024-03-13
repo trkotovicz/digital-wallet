@@ -3,7 +3,8 @@ import { StatusCodes } from "http-status-codes";
 export enum ErrorTypes {
   GenericError = "GenericError",
   BadRequest = "BadRequest",
-  ConflictError = "ConflictError",
+  DocumentConflictError = "DocumentConflictError",
+  AccountConflictError = "AccountConflictError",
   UnauthorizedError = "UnauthorizedError",
   InvalidToken = "InvalidToken",
   InvalidDocument = "InvalidDocument",
@@ -27,7 +28,11 @@ export const errorCatalog: ErrorCatalog = {
     message: "Something wrong happened",
     httpStatus: StatusCodes.BAD_REQUEST,
   },
-  ConflictError: {
+  AccountConflictError: {
+    message: "Account is already in use",
+    httpStatus: StatusCodes.CONFLICT,
+  },
+  DocumentConflictError: {
     message: "Document is already in use",
     httpStatus: StatusCodes.CONFLICT,
   },
@@ -36,7 +41,7 @@ export const errorCatalog: ErrorCatalog = {
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
   InvalidToken: {
-    message: "Invalid Token",
+    message: "Invalid or Expired Token",
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
   InvalidDocument: {
