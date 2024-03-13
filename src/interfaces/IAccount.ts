@@ -5,3 +5,7 @@ export interface IAccount {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IAccountList {
+  accounts: IAccount[];
+}

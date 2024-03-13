@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { Account } from '../database/entity/Account';
-import { IAccount } from '../interfaces/IAccount';
+import { IAccount, IAccountList } from '../interfaces/IAccount';
 import { newAccountSchema } from '../utils/validations/account.validations';
 import { ErrorTypes } from '../errors/catalog';
 import { randomUUID } from 'crypto';
@@ -31,6 +31,13 @@ export default class AccountService {
       createdAt: data.createdAt,
       updatedAt: data.updatedAt
     }
+  }
+
+  list = async (document: string): Promise<IAccountList> => {
+    return { accounts: await this.accountRepository.find({
+      where: { document },
+      select: ["id", "branch", "account", "createdAt", "updatedAt"],
+    })};
   }
 
   exists = async (account: string): Promise<boolean> => {
