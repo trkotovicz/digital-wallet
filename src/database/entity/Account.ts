@@ -16,11 +16,11 @@ export class Account {
   @PrimaryColumn({ type: "uuid" })
   id: string;
 
-  @Column({ type: "int", nullable: false, default: "001" })
-  branch: number;
+  @Column({ type: "varchar", nullable: false, default: "001" })
+  branch: string;
 
-  @Column({ type: "int", nullable: false, unique: true })
-  account: number;
+  @Column({ type: "varchar", nullable: false, unique: true })
+  account: string;
 
   @Column({
     type: "decimal",

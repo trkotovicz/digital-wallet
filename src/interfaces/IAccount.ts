@@ -1,7 +1,7 @@
 export interface IAccount {
   id: string;
-  branch: number;
-  account: number;
+  branch: string;
+  account: string;
   createdAt: Date;
   updatedAt: Date;
 }

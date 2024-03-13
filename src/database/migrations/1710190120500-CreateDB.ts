@@ -61,7 +61,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
           },
           {
             name: "account",
-            type: "int",
+            type: "varchar",
             isNullable: false,
             isUnique: true,
           },

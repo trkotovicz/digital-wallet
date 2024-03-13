@@ -8,15 +8,17 @@ import { randomUUID } from 'crypto';
 export default class AccountService {
   constructor (private accountRepository: Repository<Account>) { }
 
-  create = async (branch: number, account: number, document: string): Promise<IAccount> => {
+  create = async (branch: string, account: string, document: string): Promise<IAccount> => {
     newAccountSchema({ branch, account });
 
-    if (await this.exists(account)) throw new Error(ErrorTypes.AccountConflictError)
+    const maskedAccount = account.slice(0, 7) + "-" + account.slice(7);
+    
+    if (await this.exists(maskedAccount)) throw new Error(ErrorTypes.AccountConflictError);
 
     const data = this.accountRepository.create({
       id: randomUUID(),
       branch,
-      account,
+      account: maskedAccount,
       document
     });
 
@@ -31,7 +33,7 @@ export default class AccountService {
     }
   }
 
-  exists = async (account: number): Promise<boolean> => {
+  exists = async (account: string): Promise<boolean> => {
     return await this.accountRepository.exists({ where: { account } });
   }
 }
