@@ -7,6 +7,7 @@ export enum ErrorTypes {
   CardConflictError = "CardConflictError",
   AccountConflictError = "AccountConflictError",
   PhysicalCardLimitError = "PhysicalCardLimitError",
+  AccountNotFound = "AccountNotFound",
   UnauthorizedError = "UnauthorizedError",
   InvalidToken = "InvalidToken",
   InvalidDocument = "InvalidDocument",
@@ -45,6 +46,10 @@ export const errorCatalog: ErrorCatalog = {
   CardConflictError: {
     message: "Card number already exists",
     httpStatus: StatusCodes.CONFLICT,
+  },
+  AccountNotFound: {
+    message: "Account not found",
+    httpStatus: StatusCodes.NOT_FOUND,
   },
   UnauthorizedError: {
     message: "Invalid login data",

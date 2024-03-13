@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { accountController } from './main';
+import { accountController, cardController } from './main';
 
 const accountRouter = Router();
 
-accountRouter.post("/accounts", accountController.createNewAccount);
+accountRouter.post("/accounts", accountController.create);
 accountRouter.get('/accounts', accountController.list);
-accountRouter.post("/accounts/:accountId/cards", accountController.createNewCard);
+accountRouter.post("/accounts/:accountId/cards", cardController.create);
 
 export default accountRouter;
