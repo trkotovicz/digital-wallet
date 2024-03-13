@@ -4,7 +4,9 @@ export enum ErrorTypes {
   GenericError = "GenericError",
   BadRequest = "BadRequest",
   DocumentConflictError = "DocumentConflictError",
+  CardConflictError = "CardConflictError",
   AccountConflictError = "AccountConflictError",
+  PhysicalCardLimitError = "PhysicalCardLimitError",
   UnauthorizedError = "UnauthorizedError",
   InvalidToken = "InvalidToken",
   InvalidDocument = "InvalidDocument",
@@ -32,8 +34,16 @@ export const errorCatalog: ErrorCatalog = {
     message: "Account is already in use",
     httpStatus: StatusCodes.CONFLICT,
   },
+  PhysicalCardLimitError: {
+    message: "You've reached your physical cards limit",
+    httpStatus: StatusCodes.BAD_GATEWAY,
+  },
   DocumentConflictError: {
     message: "Document is already in use",
+    httpStatus: StatusCodes.CONFLICT,
+  },
+  CardConflictError: {
+    message: "Card number already exists",
     httpStatus: StatusCodes.CONFLICT,
   },
   UnauthorizedError: {

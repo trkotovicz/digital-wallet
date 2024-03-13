@@ -167,7 +167,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
           {
             name: "number",
             type: "varchar",
-            length: "16",
             isNullable: false,
             isUnique: true,
           },

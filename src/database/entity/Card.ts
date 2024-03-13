@@ -2,9 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryColumn,
-  Table,
   UpdateDateColumn,
 } from "typeorm";
 import { CardType } from "../../interfaces/ICard";
@@ -16,12 +16,13 @@ export class Card {
   id: string;
 
   @ManyToOne(() => Account, (account) => account.cards)
+  @JoinColumn({ name: "account_id" })
   accountId: Account;
 
   @Column({ type: "enum", enum: CardType, nullable: false })
   type: string;
 
-  @Column({ type: "varchar", length: 16, nullable: false, unique: true })
+  @Column({ type: "varchar", nullable: false, unique: true })
   number: string;
 
   @Column({ type: "int", nullable: false })
