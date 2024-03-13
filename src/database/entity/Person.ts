@@ -19,7 +19,7 @@ export class Person {
   @Column({ type: "varchar", nullable: false, length: 100 })
   name: string;
 
-  @Column({ type: "varchar", nullable: false, length: 60 })
+  @Column({ type: "varchar", nullable: false })
   password: string;
 
   @CreateDateColumn({

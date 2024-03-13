@@ -3,6 +3,7 @@ import { Repository } from "typeorm";
 import { Person } from "../database/entity/Person";
 import { ErrorTypes } from "../errors/catalog";
 import { newPersonSchema, validateDocument } from "../utils/person.validations";
+import { setPassword } from '../utils/hashPassword';
 
 export default class PersonService {
   constructor(private personRepository: Repository<Person>) {}
@@ -12,6 +13,8 @@ export default class PersonService {
     validateDocument(document);
 
     if (!this.exists(document)) throw new Error(ErrorTypes.ConflictError);
+
+    password = setPassword(password);
 
     const person = this.personRepository.create({
       id: randomUUID(),
@@ -27,7 +30,7 @@ export default class PersonService {
       name: person.name,
       document: person.document,
       createdAt: person.createdAt,
-      updatedAt: person.updatedAt,
+      updatedAt: person.updatedAt
     };
   };
 

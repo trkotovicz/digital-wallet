@@ -27,7 +27,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
           {
             name: "password",
             type: "varchar",
-            length: "60",
             isNullable: false,
           },
           {
