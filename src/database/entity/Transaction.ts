@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 import { Account } from "./Account";
 
-@Entity()
+@Entity({ name: "transactions" })
 export class Transaction {
   @PrimaryColumn({ type: "uuid" })
   id: string;

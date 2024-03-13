@@ -3,8 +3,10 @@ import { StatusCodes } from "http-status-codes";
 export enum ErrorTypes {
   GenericError = "GenericError",
   BadRequest = "BadRequest",
+  ConflictError = "ConflictError",
   UnauthorizedError = "UnauthorizedError",
   InvalidToken = "InvalidToken",
+  InvalidDocument = "InvalidDocument",
 }
 
 interface ErrorResponseObject {
@@ -25,12 +27,20 @@ export const errorCatalog: ErrorCatalog = {
     message: "Something wrong happened",
     httpStatus: StatusCodes.BAD_REQUEST,
   },
+  ConflictError: {
+    message: "Document is already in use",
+    httpStatus: StatusCodes.CONFLICT,
+  },
   UnauthorizedError: {
-    message: "Invalid username or password",
+    message: "Invalid login data",
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
   InvalidToken: {
     message: "Invalid Token",
     httpStatus: StatusCodes.UNAUTHORIZED,
+  },
+  InvalidDocument: {
+    message: "Invalid Document",
+    httpStatus: StatusCodes.BAD_REQUEST,
   },
 };

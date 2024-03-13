@@ -10,7 +10,7 @@ import {
 import { CardType } from "../../interfaces/ICard";
 import { Account } from "./Account";
 
-@Entity()
+@Entity({ name: "cards" })
 export class Card {
   @PrimaryColumn({ type: "uuid" })
   id: string;
@@ -24,7 +24,7 @@ export class Card {
   @Column({ type: "varchar", length: 16, nullable: false, unique: true })
   number: string;
 
-  @Column({ type: "int", length: 3, nullable: false })
+  @Column({ type: "int", nullable: false })
   cvv: string;
 
   @CreateDateColumn({

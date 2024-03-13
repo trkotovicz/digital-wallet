@@ -11,15 +11,15 @@ import { Card } from "./Card";
 import { Person } from "./Person";
 import { Transaction } from './Transaction';
 
-@Entity()
+@Entity({ name: "accounts" })
 export class Account {
   @PrimaryColumn({ type: "uuid" })
   id: string;
 
-  @Column({ type: "int", nullable: false, default: "001", length: 3 })
+  @Column({ type: "int", nullable: false, default: "001" })
   branch: number;
 
-  @Column({ type: "int", nullable: false, unique: true, length: 8 })
+  @Column({ type: "int", nullable: false, unique: true })
   account: number;
 
   @Column({

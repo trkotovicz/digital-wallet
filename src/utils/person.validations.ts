@@ -1,5 +1,6 @@
 import * as Joi from "joi";
-const { validate } = require("cpf-cnpj-validator");
+import { ErrorTypes } from '../errors/catalog';
+const { validator, cpf, cnpj } = require("cpf-cnpj-validator");
 const passwordComplexity = require("joi-password-complexity");
 
 const complexityOptions = {
@@ -12,18 +13,23 @@ const complexityOptions = {
   requirementCount: 4,
 };
 
-const validateDocument = (value: string): boolean => {
-  return validate(value);
+export const validateDocument = (value: any): boolean => {
+  if (value.length === 11) {
+    const isValid = cpf.isValid(value);
+    if (!isValid) throw new Error(ErrorTypes.InvalidDocument);
+    return true;
+  }
+  if (value.length === 14) {
+    const isValid = cnpj.isValid(value);
+    if (!isValid) throw new Error(ErrorTypes.InvalidDocument);
+    return true;
+  }
+  else throw new Error(ErrorTypes.InvalidDocument);
 };
 
 export const newPersonSchema = (data: object): Joi.ValidationResult => {
   const schema = Joi.object({
-    document: Joi.string().custom((value, helpers) => {
-      if (!validateDocument(value)) {
-        return helpers.error("Document must be a valid CPF or CNPJ");
-      }
-      return value;
-    }),
+    document: Joi.string().min(11).max(14),
     name: Joi.string().min(3).max(100),
     password: passwordComplexity(complexityOptions).error(
       new Error(

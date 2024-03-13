@@ -16,6 +16,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
             name: "document",
             type: "varchar",
             isNullable: false,
+            isUnique: true,
           },
           {
             name: "name",
@@ -38,13 +39,6 @@ export class CreateDB1710190120500 implements MigrationInterface {
             name: "updated_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP",
-          },
-        ],
-        indices: [
-          {
-            name: "IDX_DOCUMENT",
-            columnNames: ["document"],
-            isUnique: true,
           },
         ],
       })
