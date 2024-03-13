@@ -1,17 +1,28 @@
 import crypto from "crypto";
 
-const salt = crypto.randomBytes(16).toString("hex");
+interface StoredPassword {
+  salt: string;
+  hash: string;
+}
 
-export const setPassword = (password: string) => {
+const setPassword = (password: string) => {
+  const salt = crypto.randomBytes(16).toString("hex");
   const hash = crypto
     .pbkdf2Sync(password, salt, 1000, 64, "sha512")
     .toString("hex");
-  return hash;
+  return { salt, hash };
 };
 
-export const validPassword = (password: string, hash: string) => {
-  const hashPassword = crypto
-    .pbkdf2Sync(password, salt, 1000, 64, "sha512")
+export const storePassword = (password: string) => {
+  const { salt, hash } = setPassword(password) as unknown as StoredPassword;
+  const formattedPassword = `${salt};${hash}`;
+  return formattedPassword;
+};
+
+export const validPassword = (password: string, storedPassword: string) => {
+  const [storedSalt, storedHash] = storedPassword.split(";");
+  const inputHash = crypto
+    .pbkdf2Sync(password, storedSalt, 1000, 64, "sha512")
     .toString("hex");
-  return hashPassword === hash;
+  return inputHash === storedHash;
 };

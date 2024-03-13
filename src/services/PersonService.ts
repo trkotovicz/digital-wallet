@@ -3,10 +3,25 @@ import { Repository } from "typeorm";
 import { Person } from "../database/entity/Person";
 import { ErrorTypes } from "../errors/catalog";
 import { newPersonSchema, validateDocument } from "../utils/person.validations";
-import { setPassword } from '../utils/hashPassword';
+import { storePassword, validPassword } from '../utils/hashPassword';
+import JwtService from '../utils/jwt';
 
 export default class PersonService {
-  constructor(private personRepository: Repository<Person>) {}
+  constructor (private personRepository: Repository<Person>) { }
+  
+  login = async (document: string, password: string) => {
+    try {
+      const findDocument = await this.personRepository.findOneOrFail({ where: { document } });
+
+      const hashPass = validPassword(password, findDocument.password);
+      if (!hashPass) throw new Error(ErrorTypes.UnauthorizedError);
+
+      const token = JwtService.createToken({ document, password });
+      return token;
+    } catch (error) {
+      throw new Error(ErrorTypes.UnauthorizedError);
+    }
+  }
 
   create = async (name: string, document: string, password: string) => {
     newPersonSchema({ name, document, password });
@@ -14,13 +29,13 @@ export default class PersonService {
 
     if (!this.exists(document)) throw new Error(ErrorTypes.ConflictError);
 
-    password = setPassword(password);
+    const hashedPassword = storePassword(password);
 
     const person = this.personRepository.create({
       id: randomUUID(),
       name,
       document,
-      password,
+      password: hashedPassword,
     });
 
     await this.personRepository.save(person);
