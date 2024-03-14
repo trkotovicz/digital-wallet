@@ -5,7 +5,7 @@ export enum CardType {
 
 export interface ICard {
   id: string;
-  type: CardType,
+  type: string,
   number: string;
   cvv: string;
   createdAt: Date;

@@ -20,7 +20,7 @@ const personController = new PersonController(personService);
 const accountService = new AccountService(accountRepository);
 const accountController = new AccountController(accountService);
 
-const cardService = new CardService(cardRepository, accountRepository);
+const cardService = new CardService(cardRepository, accountRepository, accountService);
 const cardController = new CardController(cardService);
 
 export { personController, accountController, cardController };

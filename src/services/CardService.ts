@@ -1,20 +1,40 @@
 import { randomUUID } from "crypto";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { AppDataSource } from "../database/data-source";
 import { Account } from "../database/entity/Account";
 import { Card } from "../database/entity/Card";
 import { ErrorTypes } from "../errors/catalog";
-import { CardType } from "../interfaces/ICard";
+import { CardType, ICard, ICardList } from "../interfaces/ICard";
 import { newCardSchema } from "../utils/validations/card.validations";
+import AccountService from './AccountService';
 
 export default class CardService {
   constructor(
     private cardRepository: Repository<Card>,
-    private accountRepository: Repository<Account>
+    private accountRepository: Repository<Account>,
+    private accountService: AccountService
   ) {}
 
   exists = async (number: string): Promise<boolean> => {
     return await this.cardRepository.exists({ where: { number } });
+  };
+
+  formatCardNumber = async (cards: ICard[]) => {
+    let cardsMasked = [];
+    cards.forEach((card) => {
+      // const data = {
+      //   id: card.id,
+      //   type: card.type,
+      //   number: card.number.slice(card.number.length - 4),
+      //   cvv: card.cvv,
+      //   createdAt: card.createdAt,
+      //   updatedAt: card.updatedAt,
+      // };
+      // cardsMasked.push(data);
+      card.number = card.number.slice(card.number.length - 4);
+      cardsMasked.push(card);
+    });
+    return cardsMasked;
   };
 
   create = async (
@@ -22,7 +42,7 @@ export default class CardService {
     number: string,
     cvv: string,
     accountId: string
-  ) => {
+  ): Promise<ICard> => {
     newCardSchema({ type, number, cvv });
     const formattedCard = number.replace(/ /g, "");
 
@@ -56,6 +76,16 @@ export default class CardService {
       createdAt: card.createdAt,
       updatedAt: card.updatedAt,
     };
+  };
+
+  list = async (document: string): Promise<ICardList> => {
+    const accounts = await this.accountService.list(document);
+    const ids = accounts.accounts.map((account) => account.id);
+
+    const data = await this.cardRepository.find({ where: { accountId: In(ids) } });
+    
+    const cards = await this.formatCardNumber(data);
+    return { cards };
   };
 
   existsPhysicalCard = async (accountId: string): Promise<void | Error> => {
