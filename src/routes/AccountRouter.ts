@@ -9,5 +9,6 @@ accountRouter.get("/accounts/cards", cardController.list);
 accountRouter.get("/accounts/:accountId/balance", accountController.getAccountBalance);
 accountRouter.post("/accounts/:accountId/cards", cardController.create);
 accountRouter.post("/accounts/:accountId/transactions", transactionController.create);
+accountRouter.get("/accounts/:accountId/transactions", transactionController.getTransactionsByAccount);
 
 export default accountRouter;

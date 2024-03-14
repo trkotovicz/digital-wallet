@@ -1,10 +1,11 @@
 import { randomUUID } from "crypto";
-import { Repository } from "typeorm";
+import { Repository, SelectQueryBuilder } from "typeorm";
+import { AppDataSource } from "../database/data-source";
 import { Transaction, TransactionType } from "../database/entity/Transaction";
+import { ErrorTypes } from "../errors/catalog";
 import { ITransaction } from "../interfaces/ITransaction";
 import { newTransactionSchema } from "../utils/validations/transaction.validations";
 import AccountService from "./AccountService";
-import { ErrorTypes } from '../errors/catalog';
 
 export default class TransactionService {
   constructor(
@@ -24,8 +25,7 @@ export default class TransactionService {
     }
     if (type === TransactionType.DEBIT) {
       return await this.debitTransaction(value, description, accountId);
-    }
-    else throw new Error(ErrorTypes.BadRequest);
+    } else throw new Error(ErrorTypes.BadRequest);
   };
 
   creditTransaction = async (
@@ -79,5 +79,48 @@ export default class TransactionService {
     } catch (error) {
       throw new Error(error);
     }
+  };
+
+  getTransactionsByAccount = async (
+    accountId: string,
+    type?: string,
+    search?: string
+  ): Promise<{ transactions: ITransaction[] }> => {
+    let queryBuilder: SelectQueryBuilder<Transaction> =
+      AppDataSource.createQueryBuilder(Transaction, "transaction")
+        .where("transaction.accountId = :accountId", { accountId })
+        .select([
+          "transaction.id",
+          "transaction.value",
+          "transaction.description",
+          "transaction.createdAt",
+          "transaction.updatedAt",
+        ]);
+
+    if (type) {
+      queryBuilder = this.applyTypeFilter(queryBuilder, type);
+    }
+    if (search) {
+      queryBuilder = this.applySearchFilter(queryBuilder, search);
+    }
+
+    const transactions = await queryBuilder.getMany();
+    return { transactions };
+  };
+
+  private applyTypeFilter = (
+    queryBuilder: SelectQueryBuilder<Transaction>,
+    type: string
+  ): SelectQueryBuilder<Transaction> => {
+    return queryBuilder.andWhere("transaction.type = :type", { type });
+  };
+
+  private applySearchFilter = (
+    queryBuilder: SelectQueryBuilder<Transaction>,
+    search: string
+  ): SelectQueryBuilder<Transaction> => {
+    return queryBuilder.andWhere("LOWER(transaction.description) LIKE LOWER(:search)", {
+      search: `%${search}%`,
+    });
   };
 }
