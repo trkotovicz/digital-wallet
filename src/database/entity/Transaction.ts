@@ -7,6 +7,11 @@ import {
 } from "typeorm";
 import { Account } from "./Account";
 
+export enum TransactionType {
+  DEBIT = "debit",
+  CREDIT = "credit",
+}
+
 @Entity({ name: "transactions" })
 export class Transaction {
   @PrimaryColumn({ type: "uuid" })
@@ -25,6 +30,9 @@ export class Transaction {
 
   @Column({ type: "varchar", length: 60 })
   description: string;
+
+  @Column({ type: "enum", enum: TransactionType, nullable: false })
+  type: TransactionType;
 
   @CreateDateColumn({
     name: "created_at",

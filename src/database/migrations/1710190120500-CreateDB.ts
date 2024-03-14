@@ -126,6 +126,11 @@ export class CreateDB1710190120500 implements MigrationInterface {
             length: "60",
           },
           {
+            name: "type",
+            type: "varchar",
+            isNullable: false,
+          },
+          {
             name: "created_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP",
