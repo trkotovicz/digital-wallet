@@ -2,8 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Account } from "./Account";
 
@@ -18,6 +20,7 @@ export class Transaction {
   id: string;
 
   @ManyToOne(() => Account, (account) => account.transactions)
+  @JoinColumn({ name: "account_id" })
   accountId: Account;
 
   @Column({
@@ -40,4 +43,11 @@ export class Transaction {
     default: () => "CURRENT_TIMESTAMP",
   })
   createdAt: Date;
+
+  @UpdateDateColumn({
+    name: "updated_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  updatedAt: Date;
 }

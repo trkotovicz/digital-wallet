@@ -71,6 +71,7 @@ export class CreateDB1710190120500 implements MigrationInterface {
             isNullable: false,
             precision: 8,
             scale: 2,
+            default: 500
           },
           {
             name: "document",
@@ -134,7 +135,11 @@ export class CreateDB1710190120500 implements MigrationInterface {
             name: "created_at",
             type: "timestamp",
             default: "CURRENT_TIMESTAMP",
-            isNullable: false,
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "CURRENT_TIMESTAMP",
           },
         ],
         foreignKeys: [

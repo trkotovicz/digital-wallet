@@ -3,14 +3,15 @@ import { StatusCodes } from "http-status-codes";
 export enum ErrorTypes {
   GenericError = "GenericError",
   BadRequest = "BadRequest",
+  UnauthorizedError = "UnauthorizedError",
+  InvalidToken = "InvalidToken",
+  InvalidDocument = "InvalidDocument",
+  AccountNotFound = "AccountNotFound",
+  InsufficientFunds = "InsufficientFunds",
   DocumentConflictError = "DocumentConflictError",
   CardConflictError = "CardConflictError",
   AccountConflictError = "AccountConflictError",
   PhysicalCardLimitError = "PhysicalCardLimitError",
-  AccountNotFound = "AccountNotFound",
-  UnauthorizedError = "UnauthorizedError",
-  InvalidToken = "InvalidToken",
-  InvalidDocument = "InvalidDocument",
 }
 
 interface ErrorResponseObject {
@@ -42,6 +43,10 @@ export const errorCatalog: ErrorCatalog = {
   DocumentConflictError: {
     message: "Document is already in use",
     httpStatus: StatusCodes.CONFLICT,
+  },
+  InsufficientFunds: {
+    message: "Insufficient Funds",
+    httpStatus: StatusCodes.UNAUTHORIZED,
   },
   CardConflictError: {
     message: "Card number already exists",

@@ -50,4 +50,23 @@ export default class AccountService {
       }),
     };
   };
+
+  findAccountById = async (accountId: string): Promise<Account> => {
+    const account = await this.accountRepository.findOne({
+      where: { id: accountId },
+    });
+    if (!account) throw new Error(ErrorTypes.AccountNotFound);
+    return account;
+  };
+
+  updateBalanceAccount = async (accountId: string, value: number) => {
+    const account = await this.findAccountById(accountId);
+    const newBalance = Number(account.balance) - value;
+
+    if (value > Number(account.balance)) throw new Error(ErrorTypes.InsufficientFunds);
+
+    account.balance = String(newBalance);
+    const data = await this.accountRepository.save(account);
+    return data;
+  };
 }

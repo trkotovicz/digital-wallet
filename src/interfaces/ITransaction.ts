@@ -1,10 +1,9 @@
-import { TransactionType } from '../database/entity/Transaction';
-
-
 export interface ITransaction {
+  id: string;
   value: number;
   description: string;
-  type: TransactionType
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ITransactionList {

@@ -27,7 +27,7 @@ export class Account {
     nullable: false,
     precision: 8,
     scale: 2,
-    default: 0,
+    default: 500,
   })
   balance: string;
 
