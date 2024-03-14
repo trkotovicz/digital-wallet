@@ -59,6 +59,11 @@ export default class AccountService {
     return account;
   };
 
+  getAccountBalance = async (accountId: string) => {
+    const { balance } = await this.findAccountById(accountId);
+    return { balance: Number(balance) };
+  }
+
   updateBalanceAccount = async (accountId: string, value: number) => {
     const account = await this.findAccountById(accountId);
     const newBalance = Number(account.balance) - value;

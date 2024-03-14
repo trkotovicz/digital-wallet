@@ -22,4 +22,10 @@ export default class AccountController {
     const data = await this.accountService.list(document);
     res.status(StatusCodes.CREATED).json(data);
   };
+
+  getAccountBalance = async (req: Request, res: Response) => {
+    const { accountId } = req.params;
+    const data = await this.accountService.getAccountBalance(accountId);
+    res.status(StatusCodes.OK).json(data);
+  }
 }
