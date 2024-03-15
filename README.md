@@ -37,6 +37,8 @@ Renomeie o arquivo raiz do projeto `.env.example` para `.env`. Este arquivo cont
 ⚠️ **Importante**
 Você deve substituir as informações do arquivo pelas credenciais do seu banco de dados.
 
+</br>
+
 
 ## Instalação
 
@@ -65,6 +67,7 @@ Scripts:
 - `npm run db:drop` para excluir o banco de dados.
 - `npm run migração:run` para executar as migrações.
 
+</br>
 
 # Endpoints
 
@@ -110,7 +113,11 @@ Response:
  }
  ```
  
+</br>
+
 ## Rotas desprotegidas
+
+</br>
 
 ### POST /people
 
@@ -134,6 +141,8 @@ Response:
  }
  ```
  
+</br>
+
  ### POST /login
  
  Objetivo: Realizar o login de uma pessoa.
@@ -155,6 +164,8 @@ Response:
  }
  ```
  
+</br>
+
 ## Rotas protegidas
 
  ### ⚠️ Atenção
@@ -166,6 +177,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
  Authorization: Bearer {TOKEN_AQUI}
  ```
  
+</br>
+
  ### POST /accounts
  
  Objetivo: Realizar a criação de uma conta para uma pessoa.
@@ -191,6 +204,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
  }
  ```
  
+</br>
+
  ### GET /accounts
  
  Objetivo: Realizar a listagem de todas as contas da pessoa.
@@ -210,6 +225,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
  }
  ```
  
+</br>
+
  ### POST /accounts/:accountId/cards
  
  Objetivo: Realizar a criação de um cartão em uma conta.
@@ -240,6 +257,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
  }
  ```
  
+</br>
+
  ### GET /accounts/:accountId/cards
  Objetivo: Realizar a listagem de todos os cartões de uma conta.
  
@@ -267,6 +286,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
  }
  ```
  
+</br>
+
  ### GET /accounts/cards
  
  Objetivo: Realizar a listagem de todos os cartões de uma pessoa.
@@ -296,6 +317,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
  }
  ```
  
+</br>
+
  ### POST /accounts/:accountId/transactions
  
  Objetivo: Realizar a criação de uma transação em uma conta. Uma transação pode ser de débito ou crédito.
@@ -323,6 +346,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
  }
  ```
  
+</br>
+
  ### GET /accounts/:accountId/transactions
  Objetivo: Listagem de todas as transações de uma conta, com filtros opcionais via query string.
  Filtros que devem ser aplicados:
@@ -344,6 +369,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
  }
  ```
  
+</br>
+
  ### GET /accounts/:accountId/balance
  Objetivo: Retorna o saldo de uma conta.
  
@@ -359,6 +386,8 @@ O token retornado do login deve ser enviado no header com o nome de `Authorizati
 
  
  ---
+
+</br>
 
 Projeto desenvolvido por [Thais R Kotovicz](https://www.linkedin.com/in/thaiskotovicz/).
 </br>
