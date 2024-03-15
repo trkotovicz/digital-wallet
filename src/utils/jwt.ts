@@ -11,7 +11,7 @@ const jwtConfig = {
 };
 
 class JwtService {
-  static createToken(data: ILogin): string {
+  static createToken(data: ILogin) {
     const token = jwt.sign({ data }, secret, jwtConfig as object);
     return `Bearer ${token}`;
   }

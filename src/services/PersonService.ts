@@ -8,12 +8,11 @@ import {
   newPersonSchema,
   validateDocument,
 } from "../utils/validations/person.validations";
-import { IPerson } from '../interfaces/IPerson';
 
 export default class PersonService {
   constructor(private personRepository: Repository<Person>) {}
 
-  login = async (document: string, password: string): Promise<string> => {
+  login = async (document: string, password: string) => {
     try {
       const findDocument = await this.personRepository.findOneOrFail({
         where: { document },
@@ -23,17 +22,22 @@ export default class PersonService {
       if (!hashPass) throw new Error(ErrorTypes.UnauthorizedError);
 
       const token = JwtService.createToken({ document, password });
-      return token;
+      return { token };
     } catch (error) {
       throw new Error(ErrorTypes.UnauthorizedError);
     }
   };
 
-  create = async (name: string, document: string, password: string): Promise<IPerson> => {
+  create = async (
+    name: string,
+    document: string,
+    password: string
+  ): Promise<{ id: string }> => {
     newPersonSchema({ name, document, password });
     validateDocument(document);
 
-    if (!this.exists(document)) throw new Error(ErrorTypes.DocumentConflictError);
+    if (!this.exists(document))
+      throw new Error(ErrorTypes.DocumentConflictError);
 
     const hashedPassword = storePassword(password);
 
@@ -48,10 +52,6 @@ export default class PersonService {
 
     return {
       id: person.id,
-      name: person.name,
-      document: person.document,
-      createdAt: person.createdAt,
-      updatedAt: person.updatedAt,
     };
   };
 
