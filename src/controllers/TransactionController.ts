@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { CustomRequest } from "../middlewares/paginationMiddleware";
 import TransactionService from "../services/Transactions";
 
 export default class TransactionController {
@@ -17,15 +18,31 @@ export default class TransactionController {
     res.status(StatusCodes.CREATED).json(data);
   };
 
-  getTransactionsByAccount = async (req: Request, res: Response) => {
+  getTransactionsByAccount = async (req: CustomRequest, res: Response) => {
     const { accountId } = req.params;
     const { type: transactionType, search: transactionSearch } = req.query;
+    const { itemsPerPage, currentPage } = req.pagination;
 
-    const data = await this.transactionService.getTransactionsByAccount(
-      accountId,
-      transactionType as string,
-      transactionSearch as string
-    );
+    const { transactions } =
+      await this.transactionService.getTransactionsByAccount(
+        accountId,
+        transactionType as string,
+        transactionSearch as string
+      );
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = currentPage * itemsPerPage;
+    const paginatedTransactions = transactions.slice(startIndex, endIndex);
+
+    const data = {
+      transactions: paginatedTransactions,
+      pagination: {
+        totalCount: transactions.length,
+        itemsPerPage,
+        currentPage,
+        pageCount: Math.ceil(transactions.length / itemsPerPage),
+      },
+    };
 
     res.status(StatusCodes.OK).json(data);
   };

@@ -61,7 +61,7 @@ export default class TransactionService {
         accountId,
         value
       );
-      const transaction = await this.transactionRepository.create({
+      const transaction = this.transactionRepository.create({
         id: randomUUID(),
         value,
         description,
